@@ -16,7 +16,7 @@ float square[4][2] = {
 // x' = x cos(theta) - y sin(theta)
 // y' = x sin(theta) + y cos(theta)
 
-void rotate_point(float x, float y, float *out_x, float *out_y,
+void rotatePoint(float x, float y, float *out_x, float *out_y,
 float angle_degrees) {
 
     //rotate by 1.5 degrees i guess for 60 outputs per iteration??
@@ -33,18 +33,76 @@ float angle_degrees) {
 
 }
 
-int main() {
+void fourCorners() {
 
     for (int i = 0; i < 5; i++) {
 
         for (int j = 0; j < 5; j++) {
 
-            printf("# ");
+            if ((i == 0 || i == 4) && (j == 0 || j == 4)) {
+
+                printf("#");
+
+            }
+
+            else {
+
+                printf(" ");
+
+            }
 
         }
 
         printf("\n");
 
     }
+
+}
+
+void rotateCorners() {
+
+    float corners[4][2] = { 
+        { 0, 0 }, 
+        { 0, 4 }, 
+        { 4, 0 }, 
+        { 4, 4 }
+    };
+
+    float step = 30; //each step adds %f degrees ^^
+
+    for (int n = 0; n < 12; n++) {
+
+        float angle = (n * step); //(1%f, 2%f, 3%f, ..., n%f) series
+
+        for (int i = 0; i < 4; i++) {
+
+            float x = corners[i][0];
+            float y = corners[i][1];
+
+            //rotated (x, y)
+            float rx;
+            float ry;
+
+            rotatePoint(x, y, &rx, &ry, angle);
+
+            printf("Original Corner (Step %d, Angle %d): (%.2f, %.2f)\n", (n + 1), (i + 1), x, y);
+            printf("Rotated Corners (Step %d, Angle %d): (%.2f, %.2f)\n", (n + 1), (i + 1), rx, ry);
+
+        }   
+
+    }
+
+    
+
+
+
+}
+
+int main() {
+
+    printf("Original Corners: \n");
+    fourCorners();
+
+    rotateCorners();
 
 }
