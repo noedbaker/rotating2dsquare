@@ -85,8 +85,8 @@ void rotateCorners() {
 
             rotatePoint(x, y, &rx, &ry, angle);
 
-            printf("Original Corner (Step %d, Angle %d): (%.2f, %.2f)\n", (n + 1), (i + 1), x, y);
-            printf("Rotated Corners (Step %d, Angle %d): (%.2f, %.2f)\n", (n + 1), (i + 1), rx, ry);
+            printf("Original Corner (Step %d, Corner %d): (%.2f, %.2f)\n", (n + 1), (i + 1), x, y);
+            printf("Rotated Corners (Step %d, Corner %d): (%.2f, %.2f)\n", (n + 1), (i + 1), rx, ry);
 
         }   
 
@@ -98,11 +98,31 @@ void rotateCorners() {
 
 }
 
+void drawRotatedSquare(float angle_degrees) {   //rewritten version of rotate corners
+
+    float rx;
+    float ry;
+
+    for (int i = 0; i < 4; i++) {
+
+        float x = square[i][0];
+        float y = square[i][1];
+
+        rotatePoint(x, y, &rx, &ry, angle_degrees);
+
+        printf("Corner %d: (%.2f, %.2f) -> (%.2f, %.2f)\n", (i + 1), x, y, rx, ry);
+
+    }
+
+}
+
 int main() {
 
     printf("Original Corners: \n");
     fourCorners();
 
-    rotateCorners();
+    //rotateCorners();   <---- taken out for a little while.
+    printf("Rotated Corners: \n");
+    drawRotatedSquare(45);  //45 degrees
 
 }
